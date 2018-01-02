@@ -1,4 +1,4 @@
-#import pygame.mixer
+﻿#import pygame.mixer
 import pygame, sys, os
 from pygame.locals import *
 
@@ -17,8 +17,11 @@ if debugMode == True:
 else:
     pthMusicDefault = '\\media\\'
 
+filesMusic = [f for f in os.listdir(pthMusicDefault) if os.path.isfile(os.path.join(pthMusicDefault, f))]
+currentSong = filesMusic[1]
+pygame.mixer.music.load(os.path.join(pthMusicDefault, currentSong))
+
 def main():
-    filesMusic = [f for f in os.listdir(pthMusicDefault) if os.path.isfile(os.path.join(pthMusicDefault, f))]
     
     window.blit(btnPlay, (50, 100))
     btnActive = 'Stop'
@@ -51,7 +54,7 @@ def main():
             elif btnActive == 'Pause':
                 btnActive = 'Play'
                 window.blit(btnPause, (50, 100))
-                loadSong(filesMusic)
+                playSong()
         pygame.display.update()
 
         
@@ -60,7 +63,10 @@ def loadSong(filesMusic):
     #load song
 
     #for f in filesMusic:
-    pygame.mixer.music.load(os.path.join(pthMusicDefault, filesMusic[1]))
+    #pygame.mixer.music.load(os.path.join(pthMusicDefault, filesMusic[1]))
+    pygame.mixer.music.play()
+
+def playSong():
     pygame.mixer.music.play()
 
 def pauseSong():
